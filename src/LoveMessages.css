@@ -1,0 +1,54 @@
+.app-container {
+    background-color: #ffe4e6; /* Soft pink background */
+    min-height: 100vh;
+    padding-top: 16px;
+}
+
+.app-bar {
+    background-color: #ff5c8a; /* Rich pink for the top bar */
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff; /* White background for the form */
+}
+
+.form-heading {
+    color: #ff5c8a; /* Rich pink for heading */
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+
+.choose-file-button {
+    background-color: #ff5c8a; /* Rich pink for the button */
+    color: #ffffff;
+    font-size: 16px;
+    padding: 10px 20px;
+    border-radius: 24px;
+    border: none;
+    cursor: pointer;
+    text-transform: none;
+}
+
+.upload-button {
+    background-color: #d9534f; /* Slightly different pink for emphasis */
+    color: #ffffff;
+    font-size: 16px;
+    padding: 10px 20px;
+    border-radius: 24px;
+    border: none;
+    cursor: pointer;
+    text-transform: none;
+}
+
+.selected-file {
+    color: #4a4a4a; /* Dark grey for the file name */
+    font-size: 14px;
+}
