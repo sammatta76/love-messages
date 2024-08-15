@@ -8,11 +8,24 @@ const LoveMessages = () => {
         setFile(e.target.files[0]);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (file) {
-            console.log(file.name); // For now, just log the file name
+            try {
+                const formData = new FormData();
+                formData.append('file', file);
+                const response = await fetch('https://love-messages-api.vercel.app/analyze', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                const result = await response.json();
+                console.log(result);
+            } catch (error) {
+                console.error('Error:', error);
+            }
         }
+
     };
 
     return (
