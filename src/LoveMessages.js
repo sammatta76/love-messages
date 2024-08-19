@@ -3,6 +3,7 @@ import { AppBar, Toolbar, Typography, Container, Box, Button } from '@mui/materi
 
 const LoveMessages = () => {
     const [file, setFile] = useState(null);
+    const [result, setResult] = useState(null);
 
     const handleFileChange = (e) => {
         setFile(e.target.files[0]);
@@ -15,12 +16,13 @@ const LoveMessages = () => {
                 const formData = new FormData();
                 formData.append('file', file);
                 const response = await fetch('https://love-messages-api.vercel.app/analyze', {
+                    // const response = await fetch('http://127.0.0.1:8000/analyze', {
                     method: 'POST',
                     body: formData,
                 });
-
                 const result = await response.json();
                 console.log(result);
+                setResult(result);
             } catch (error) {
                 console.error('Error:', error);
             }
@@ -95,6 +97,61 @@ const LoveMessages = () => {
                     >
                         Upload
                     </Button>
+                    {result && (
+                        <Box style={{ marginTop: '24px', textAlign: 'left' }}>
+                            <Typography variant="h6" style={{ color: '#ff5c8a', fontWeight: 'bold' }}>
+                                Analysis Results:
+                            </Typography>
+
+                            <Typography variant="body1" style={{ marginTop: '16px' }}>
+                                <strong>First Messages:</strong>
+                            </Typography>
+                            {Object.entries(result.first_messages).map(([name, messageData], index) => (
+                                <Typography key={index} variant="body2">
+                                    {name}: "{messageData.message}" on {messageData.date}
+                                </Typography>
+                            ))}
+
+                            <Typography variant="body1" style={{ marginTop: '16px' }}>
+                                <strong>Laugh Counts:</strong>
+                            </Typography>
+                            {result.laugh_counts.map((item, index) => (
+                                <Typography key={index} variant="body2">
+                                    {item[0]}: {item[1]}
+                                </Typography>
+                            ))}
+
+                            <Typography variant="body1" style={{ marginTop: '16px' }}>
+                                <strong>Most Curses:</strong> {Object.entries(result['most curses']).map(([name, count], index) => (
+                                <Typography key={index} variant="body2">
+                                    {name}: {count}
+                                </Typography>
+                            ))}
+                            </Typography>
+
+                            <Typography variant="body1" style={{ marginTop: '16px' }}>
+                                <strong>Percentages:</strong>
+                            </Typography>
+                            {result.percentages.map((item, index) => (
+                                <Typography key={index} variant="body2">
+                                    {Object.entries(item).map(([name, percentage]) => (
+                                        `${name}: ${percentage}% `
+                                    ))}
+                                </Typography>
+                            ))}
+
+                            <Typography variant="body1" style={{ marginTop: '16px' }}>
+                                <strong>Top Words:</strong>
+                            </Typography>
+                            {result.sorted_word_counts.map((item, index) => (
+                                <Typography key={index} variant="body2">
+                                    {item[0]}: {item[1]}
+                                </Typography>
+                            ))}
+                        </Box>
+                    )}
+
+
                 </Box>
             </Container>
         </Box>
